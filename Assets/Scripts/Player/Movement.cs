@@ -30,18 +30,8 @@ public class Movement : MonoBehaviour
 		}
 	}
 
-	public void Init()
-	{
-		transform.position = Vector3.zero;
-		Active(false);
-	}
-
-	public void ActiveOnMove()
-	{
-		Active(true);
-	}
-
-	private void Active(bool active)
+	#region #Movement
+	public void ActiveMove(bool active)
 	{
 		rigid.bodyType = active ? RigidbodyType2D.Dynamic : RigidbodyType2D.Static;
 		isActive = active;
@@ -52,9 +42,24 @@ public class Movement : MonoBehaviour
 		float x = cam.ScreenToViewportPoint(Input.mousePosition).x > 0.5f ? sideForce : -sideForce;
 		rigid.velocity = new Vector2(x, upForce);
 	}
+	#endregion
+
+	public void Init()
+	{
+		ActiveMove(false);
+		gameObject.SetActive(true);
+		transform.position = Vector3.zero;
+	}
+
+	private void Die()
+	{
+		ActiveMove(false);
+		gameObject.SetActive(false);
+		GameManager.Instance.UpdateState(GameState.Result);
+	}
 
 	private void OnTriggerEnter2D(Collider2D other)
 	{
-		gameObject.SetActive(false);
+		Die();
 	}
 }

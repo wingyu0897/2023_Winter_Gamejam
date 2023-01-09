@@ -16,4 +16,10 @@ public class CameraMovement : MonoBehaviour
 			transform.Translate(value);
 		}
 	}
+
+	public void Init()
+	{
+		isActive = false;
+		transform.position = Vector3.zero - new Vector3(0, 0, 10);
+	}
 }

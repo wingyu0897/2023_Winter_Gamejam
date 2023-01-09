@@ -18,8 +18,11 @@ public class PlayerStateSystem : MonoBehaviour, ICoreSystem
 			case GameState.Init:
 				player.Init();
 				break;
+			case GameState.Standby:
+				player.Init();
+				break;
 			case GameState.Running:
-				player.ActiveOnMove();
+				player.ActiveMove(true);
 				break;
 		}
 	}

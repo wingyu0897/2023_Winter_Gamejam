@@ -8,6 +8,7 @@ public class DefaultLevel : Level
 	[Header("Setting")]
 	[SerializeField] private Transform box;
 	[SerializeField] private float distance;
+	[SerializeField] private float randomness;
 
 	public override void Initialize()
 	{
@@ -17,7 +18,8 @@ public class DefaultLevel : Level
 	public override void OnSpawn()
 	{
 		float x = GameManager.Instance.sideRighted ? -distance : distance;
-		GameManager.Instance.sideRighted = !GameManager.Instance.sideRighted;
+		x += Random.Range(-randomness, randomness);
 		box.transform.position = new Vector3(x, box.transform.position.y);
+		GameManager.Instance.sideRighted = !GameManager.Instance.sideRighted;
 	}
 }

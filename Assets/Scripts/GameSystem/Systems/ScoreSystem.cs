@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ScoreSystem : MonoBehaviour, ICoreSystem
 {
+	[SerializeField] private TextMeshProUGUI scoreText;
+
     private float time = 0;
 	private int score = 0;
 	private bool isActive = false;
@@ -20,7 +23,7 @@ public class ScoreSystem : MonoBehaviour, ICoreSystem
 	{
 		time += Time.deltaTime;
 		score = Mathf.FloorToInt(time);
-
+		scoreText.text = score.ToString();
 		GameManager.Instance.score = score;
 	}
 
@@ -28,6 +31,7 @@ public class ScoreSystem : MonoBehaviour, ICoreSystem
 	{
 		time = 0;
 		score = 0;
+		scoreText.text = score.ToString();
 		isActive = false;
 	}
 

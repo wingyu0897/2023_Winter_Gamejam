@@ -160,7 +160,8 @@ MonoBehaviour:
   maxWeight: 10
   weight: 10
   box: {fileID: 7515689244939289281}
-  distance: 3
+  distance: 4
+  randomness: 1
 --- !u!1 &7515689244445728017
 GameObject:
   m_ObjectHideFlags: 0

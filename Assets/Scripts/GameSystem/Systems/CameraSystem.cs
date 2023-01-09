@@ -16,7 +16,10 @@ public class CameraSystem : MonoBehaviour, ICoreSystem
 		switch (state)
 		{
 			case GameState.Init:
-				camMove.isActive = false;
+				camMove.Init();
+				break;
+			case GameState.Standby:
+				camMove.Init();
 				break;
 			case GameState.Running:
 				camMove.isActive = true;

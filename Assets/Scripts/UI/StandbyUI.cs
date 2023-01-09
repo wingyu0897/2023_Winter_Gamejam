@@ -1,18 +1,18 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StandbyButton : UIState
+public class StandbyUI : UIState
 {
-	[SerializeField] private Button tapToStandby;
+	[SerializeField] private Button tapToRunning;
 
-	private void Awake()
+	private void Start()
 	{
 		Init();
 	}
 
 	public override void Init()
 	{
-		tapToStandby.onClick.AddListener(() =>
+		tapToRunning.onClick.AddListener(() =>
 		GameManager.Instance.UpdateState
 		(GameState.Running));
 
