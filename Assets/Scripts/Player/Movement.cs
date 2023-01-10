@@ -5,6 +5,7 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     private Rigidbody2D rigid;
+	public GameObject deathEffectobj;
 
 	[SerializeField] private float upForce;
 	[SerializeField] private float sideForce;
@@ -53,6 +54,8 @@ public class Movement : MonoBehaviour
 
 	private void Die()
 	{
+		Instantiate(deathEffectobj,transform.position,Quaternion.identity);
+
 		ActiveMove(false);
 		gameObject.SetActive(false);
 		GameManager.Instance.UpdateState(GameState.Result);
