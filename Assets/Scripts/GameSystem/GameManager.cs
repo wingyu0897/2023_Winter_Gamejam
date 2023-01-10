@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
 		coreSystems.Add(GetComponent<ScoreSystem>());
 		coreSystems.Add(GetComponent<PlayerStateSystem>());
 		coreSystems.Add(GetComponent<CameraSystem>());
+		coreSystems.Add(GetComponent<LevelSystem>());
 
 		UpdateState(GameState.Init);
 	}
