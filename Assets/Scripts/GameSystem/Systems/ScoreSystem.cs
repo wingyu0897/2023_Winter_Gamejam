@@ -7,33 +7,8 @@ public class ScoreSystem : MonoBehaviour, ICoreSystem
 {
 	[SerializeField] private TextMeshProUGUI scoreText;
 
-    private float time = 0;
 	private int score = 0;
 	private bool isActive = false;
-
-	private void Update()
-	{
-		if (isActive)
-		{
-			Scoring();
-		}
-	}
-
-    private void Scoring()
-	{
-		time += Time.deltaTime;
-		score = Mathf.FloorToInt(time);
-		scoreText.text = score.ToString();
-		GameManager.Instance.score = score;
-	}
-
-	public void Init()
-	{
-		time = 0;
-		score = 0;
-		scoreText.text = score.ToString();
-		isActive = false;
-	}
 
 	public void UpdateState(GameState state)
 	{
@@ -52,5 +27,22 @@ public class ScoreSystem : MonoBehaviour, ICoreSystem
 				isActive = false;
 				break;
 		}
+	}
+
+    public void AddScore()
+	{
+		if (!isActive)
+			return;
+
+		++score;
+		scoreText.text = score.ToString();
+		GameManager.Instance.score = score;
+	}
+
+	public void Init()
+	{
+		score = 0;
+		scoreText.text = score.ToString();
+		isActive = false;
 	}
 }

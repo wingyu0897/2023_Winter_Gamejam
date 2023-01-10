@@ -17,6 +17,8 @@ public class DefaultLevel : Level
 
 	public override void OnSpawn()
 	{
+		base.ScoreCheckLine();
+
 		float x = GameManager.Instance.sideRighted ? -distance : distance;
 		x += Random.Range(-randomness, randomness);
 		box.transform.position = new Vector3(x, box.transform.position.y);

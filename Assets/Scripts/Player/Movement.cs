@@ -5,6 +5,7 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     private Rigidbody2D rigid;
+	private ScoreSystem scoreSystem;
 	public GameObject deathEffectobj;
 
 	[SerializeField] private float upForce;
@@ -50,6 +51,7 @@ public class Movement : MonoBehaviour
 		ActiveMove(false);
 		gameObject.SetActive(true);
 		transform.position = Vector3.zero;
+		scoreSystem = GameManager.Instance.GetSystem<ScoreSystem>() as ScoreSystem;
 	}
 
 	private void Die()
@@ -61,8 +63,16 @@ public class Movement : MonoBehaviour
 		GameManager.Instance.UpdateState(GameState.Result);
 	}
 
-	private void OnTriggerEnter2D(Collider2D other)
+	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		Die();
+		if (collision.CompareTag("DeathWall"))
+		{
+			Die();
+		}
+		else if (collision.CompareTag("Score"))
+		{
+			scoreSystem.AddScore();
+			collision.enabled = false;
+		}
 	}
 }

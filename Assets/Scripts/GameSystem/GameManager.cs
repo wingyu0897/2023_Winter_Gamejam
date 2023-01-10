@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -47,5 +48,17 @@ public class GameManager : MonoBehaviour
 			default:
 				break;
 		}
+	}
+
+	public ICoreSystem GetSystem<T>() where T : ICoreSystem
+	{
+		ICoreSystem value = default(T);
+
+		foreach (ICoreSystem coreSystem in coreSystems.OfType<T>())
+		{
+			value = coreSystem;
+		}
+
+		return value;
 	}
 }
