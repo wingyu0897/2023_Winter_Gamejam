@@ -2,12 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Movement : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rigid;
+	private SpriteRenderer spriteRenderer;
+	private TrailRenderer trailRenderer;
 	private ScoreSystem scoreSystem;
-	public GameObject deathEffectobj;
 
+	[Header("Effect")]
+	public ParticleSystem deathEffect;
+
+	[Header("Movement")]
 	[SerializeField] private float upForce;
 	[SerializeField] private float sideForce;
 
@@ -18,6 +23,8 @@ public class Movement : MonoBehaviour
 	private void Awake()
 	{
 		rigid = GetComponent<Rigidbody2D>();
+		spriteRenderer = GetComponent<SpriteRenderer>();
+		trailRenderer = GetComponent<TrailRenderer>();
 		cam = Camera.main;
 	}
 
@@ -37,6 +44,7 @@ public class Movement : MonoBehaviour
 	{
 		rigid.bodyType = active ? RigidbodyType2D.Dynamic : RigidbodyType2D.Static;
 		isActive = active;
+		trailRenderer.enabled = active;
 	}
 
 	private void Jump()
@@ -48,18 +56,18 @@ public class Movement : MonoBehaviour
 
 	public void Init()
 	{
-		ActiveMove(false);
-		gameObject.SetActive(true);
 		transform.position = Vector3.zero;
+		spriteRenderer.enabled = true;
 		scoreSystem = GameManager.Instance.GetSystem<ScoreSystem>() as ScoreSystem;
+		ActiveMove(false);
+		deathEffect.Clear();
 	}
 
 	private void Die()
 	{
-		Instantiate(deathEffectobj,transform.position,Quaternion.identity);
-
+		spriteRenderer.enabled = false;
+		deathEffect.Play();
 		ActiveMove(false);
-		gameObject.SetActive(false);
 		GameManager.Instance.UpdateState(GameState.Result);
 	}
 

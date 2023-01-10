@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class PlayerStateSystem : MonoBehaviour, ICoreSystem
 {
-	private Movement player;
+	private PlayerController player;
 
 	private void Awake()
 	{
-		player = GameObject.FindGameObjectWithTag("Player").GetComponent<Movement>();
+		player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 	}
 
 	public void UpdateState(GameState state)
