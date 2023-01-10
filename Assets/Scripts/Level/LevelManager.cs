@@ -62,9 +62,6 @@ public class LevelManager : MonoBehaviour
 		{
 			poolManager.CreatePool(pl.prefab, transform, pl.count);
 		}
-
-		Initialize();
-		Active();
 	}
 
 	private void Update()
@@ -199,12 +196,15 @@ public class LevelManager : MonoBehaviour
 			Push(spawnedLevels[0]);
 		}
 
+		spawnPos = spawnOffset;
 		levelPrefabs = levelPrefabs.OrderBy(i => i.appearPoint).ToList(); //levelPrefbs.appearPoint 값을 기준으로 내림차순 정렬
 		usableLevels.Clear(); //사용가능한 레벨들 초기화
 		unUsableLevels = levelPrefabs.ToList(); //사용 불가능한 레벨들 초기화(스폰할 레벨들에서 값 복사)
 
 		weight = 0;
 		lateInput = null;
+
+		GameManager.Instance.sideRighted = false;
 	}
 
 	public Level Pop(Level level)
